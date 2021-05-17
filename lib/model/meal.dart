@@ -143,4 +143,12 @@ class Meal {
       strMeasure20: map['strMeasure20'] ?? '',
     );
   }
+  
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Meal &&
+          runtimeType == other.runtimeType &&
+          other.idMeal == idMeal);
 }

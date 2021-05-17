@@ -6,9 +6,11 @@ import 'package:coocking_time/model/meal.dart';
 class Api with ChangeNotifier {
   Api() {
     loadMeals();
+    
     loadRandomMeals();
   }
   List<Meal> meals = [];
+
   List<Meal> listOfCategorItems(String category) {
     List<Meal> myList = [];
 
@@ -34,6 +36,11 @@ class Api with ChangeNotifier {
   }
 
   List<Meal> randomMeals = [];
+  // List<Meal> get randomMeals {
+  //   notifyListeners();
+  //   return listOfRandomMeals;
+  // }
+
   changelist(myNum, api) {
     var a = api.meals;
     if (myNum == 0) {
@@ -54,7 +61,7 @@ class Api with ChangeNotifier {
   }
 
 //main funvtion
-  Future loadMeals() async {
+  Future<void> loadMeals() async {
     http.Response response = await http.get(url);
     if (response.statusCode == 200) {
       var meal = json.decode(response.body);
@@ -65,6 +72,7 @@ class Api with ChangeNotifier {
 
   loadRandomMeals() {
     for (var i = 0; i < 15; i++) {
+      // debugPrint('from load random meals 15 time $i');
       loadRandomMeal();
     }
   }
@@ -73,9 +81,11 @@ class Api with ChangeNotifier {
     http.Response response = await http.get(randomMealUrl);
     if (response.statusCode == 200) {
       var meal = json.decode(response.body);
-      var a = toListOfMeal(meal['meals']);
-      if (!randomMeals.contains(a)) {
-        randomMeals += a;
+      var mealItem = toListOfMeal(meal['meals']);
+      if (!randomMeals.contains(mealItem.first)) {
+        randomMeals.add(mealItem.first);
+        // debugPrint(
+        //     'from load random meals func lenth is ${randomMeals.length}');
       }
     }
     notifyListeners();

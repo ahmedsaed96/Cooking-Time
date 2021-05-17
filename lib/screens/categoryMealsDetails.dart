@@ -7,9 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CategoryMeals extends StatelessWidget {
-  //TODO:Ishould add and delete from lists by meal id
+  
   static const String routeName = 'CategoryMeals';
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -90,15 +89,15 @@ class CategoryMeals extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            buildContainerForIconButton(
-                              //TODO:Ihave some problem here
-                                size,
-                                context,
-                                api.firstItemInDropDown == 'Category'
-                                    ? api.listOfCategoryItems[index]
-                                    : Provider.of<AreaApi>(context,
-                                            listen: false)
-                                        .allAreas[index]),
+                            // buildContainerForIconButton(
+                            //   //TODO:Ihave some problem here
+                            //     size,
+                            //     context,
+                            //     api.firstItemInDropDown == 'Category'
+                            //         ? api.listOfCategoryItems[index]
+                            //         : Provider.of<AreaApi>(context,
+                            //                 listen: false)
+                            //             .allAreas[index]),
                           ],
                         ),
                         // SizedBox(height: 10.0),

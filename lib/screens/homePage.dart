@@ -12,8 +12,8 @@ class HomePage extends StatelessWidget {
   static const String routeName = 'HomePage';
 //TODO:ineed solve this problem for performance
 //and internet slow and solve console errors
-  // final String url =
-  //     'https://tul.imgix.net/content/article/wahlburgers.jpg?auto=format,compress&w=520&h=390&fit=crop';
+  // final Api api = Api();
+  //// i comment this line because random meals list items dont show i try to use consumer again
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Consumer<Api>(
-        builder: (context, api, widget) => ListView(
+        builder: (context, api, child) => ListView(
           padding: EdgeInsets.all(15.0),
           children: [
             Text(
@@ -39,22 +39,24 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 10.0),
             Text('Today recipe', style: kStyle1),
             SizedBox(height: 10.0),
+            //////////////// //First LIst
             Container(
               width: size.width / 2.1,
               height: size.height / 3.3,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (BuildContext context, int index) =>
-                    todayRecipeCard(
-                        size: size,
-                        imageUrl: api.randomMeals[index].strMealThumb,
-                        nameofrecipe: api.randomMeals[index].strMeal,
-                        onTap: () => Navigator.of(context)
-                                .pushNamed(DetailsScreen.routeName, arguments: {
-                              'thumb': api.randomMeals[index].strMealThumb,
-                              'index': index,
-                              'num': 0,
-                            })),
+                itemBuilder: (BuildContext context, int index) {
+                  return todayRecipeCard(
+                      size: size,
+                      imageUrl: api.randomMeals[index].strMealThumb,
+                      nameofrecipe: api.randomMeals[index].strMeal,
+                      onTap: () => Navigator.of(context)
+                              .pushNamed(DetailsScreen.routeName, arguments: {
+                            'thumb': api.randomMeals[index].strMealThumb,
+                            'index': index,
+                            'num': 0,
+                          }));
+                },
                 itemCount: api.randomMeals.length,
               ),
             ),
@@ -73,30 +75,45 @@ class HomePage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20.0),
-            // height: size.height / 3.7,
-            // width: size.width,
+            ///////////////// //Second List
             Container(
               height: size.height / 3.7,
               width: size.width,
+              //i will delete this fture in the end of app
+              // child: FutureBuilder(
+              // future: api.loadMeals(),
+              // builder: (context, snapshot) {
+              // if (snapshot.connectionState == ConnectionState.waiting) {
+              //   return Center(child: CircularProgressIndicator());
+              // } else if (snapshot.connectionState == ConnectionState.none) {
+              //   return Center(
+              //     child: Text('No Data'),
+              //   );
+              // }
+              // if (snapshot.connectionState == ConnectionState.done)
               child: ListView.builder(
-                // shrinkWrap: true,
-                itemBuilder: (context, index) => spicialRecipesRow(
-                    male: api.meals[index],
-                    recipeName: api.meals[index].strMeal,
-                    size: size,
-                    // onPressed: onFavIconPressed,
-                    onTab: () {
-                      Navigator.of(context)
-                          .pushNamed(DetailsScreen.routeName, arguments: {
-                        'thumb': api.meals[index].strMealThumb,
-                        'index': index,
-                        'num': 1,
-                      });
-                    },
-                    category: api.meals[index].strCategory,
-                    imageUrl: api.meals[index].strMealThumb),
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed(DetailsScreen.routeName, arguments: {
+                      'thumb': api.meals[index].strMealThumb,
+                      'index': index,
+                      'num': 1,
+                    });
+                  },
+                  child: spicialRecipesRow(
+                      country: api.meals[index].strArea,
+                      male: api.meals[index],
+                      recipeName: api.meals[index].strMeal,
+                      size: size,
+                      category: api.meals[index].strCategory,
+                      imageUrl: api.meals[index].strMealThumb),
+                ),
                 itemCount: api.meals.length,
               ),
+              // return null;
+              // },
+              // ),
             ),
           ],
         ),
@@ -109,68 +126,70 @@ class HomePage extends StatelessWidget {
   Widget spicialRecipesRow(
       {Size size,
       String imageUrl,
-      Function onTab,
+      // Function onTab,
       String recipeName,
       String category = 'category',
+      String country,
       Meal male}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
-      child: GestureDetector(
-        onTap: onTab,
-        child: Consumer<FavoriteProvider>(
-          builder: (context, provider, _) => Row(
+      child: Row(
+        children: [
+          Container(
+            padding: EdgeInsets.only(bottom: 10.0, right: 10.0),
+            margin: EdgeInsets.only(right: 10),
+            width: size.width / 3.2,
+            height: size.height / 4.9,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              image: DecorationImage(
+                image: NetworkImage(imageUrl),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                padding: EdgeInsets.only(bottom: 10.0, right: 10.0),
-                margin: EdgeInsets.only(right: 10),
-                width: size.width / 3.2,
-                height: size.height / 4.9,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  image: DecorationImage(
-                    image: NetworkImage(imageUrl),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                width: size.width * 0.8 - 82,
+                child: Text(recipeName,
+                    style:
+                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+              SizedBox(height: 10.0),
+              Text(category, style: kStyleSmall),
+              SizedBox(height: 10.0),
+              Text(country, style: kStyleSmall),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    width: size.width * 0.8 - 82,
-                    child: Text(recipeName,
-                        style: TextStyle(
-                            fontSize: 20.0, fontWeight: FontWeight.bold)),
+                  Container(height: 10.0, width: size.width / 2.4),
+                  //TODO:Ihave unknowen problem here
+                  Consumer<FavoriteProvider>(
+                    builder: (context, provider, child) => Container(
+                      child: IconButton(
+                          //ineed consumer here to update ui when tap
+                          icon: !provider.favoriteList.contains(male)
+                              ? Icon(Icons.favorite_border_sharp)
+                              : Icon(Icons.favorite),
+                          color: !provider.favoriteList.contains(male)
+                              ? Colors.grey
+                              : Colors.red,
+                          onPressed: () {
+                            !provider.favoriteList.contains(male)
+                                ? provider.favoriteList.add(male)
+                                : provider.favoriteList.remove(male);
+                          }),
+                    ),
                   ),
-                  SizedBox(height: 10.0),
-                  Text(category, style: kStyleSmall),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(height: 10.0, width: size.width / 2.4),
-                      Container(
-                        child: IconButton(
-                            icon: provider.favoriteList.contains(male)
-                                ? Icon(Icons.favorite)
-                                : Icon(Icons.favorite_border_sharp),
-                            color: provider.favoriteList.contains(male)
-                                ? Colors.red
-                                : Colors.grey,
-                            onPressed: () {
-                              !provider.favoriteList.contains(male)
-                                  ? provider.favoriteList.add(male)
-                                  : provider.favoriteList.remove(male);
-                            }),
-                      ),
-                      SizedBox(height: 10.0)
-                    ],
-                  ),
+                  SizedBox(height: 10.0)
                 ],
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

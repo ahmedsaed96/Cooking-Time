@@ -6,6 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class CategoryApi with ChangeNotifier {
+
+   CategoryApi() {
+    loadCategories();
+  }
+  
   String imageUrlProvider = '';
   List<String> myCountryFlags = [
     'https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg',
@@ -50,7 +55,7 @@ class CategoryApi with ChangeNotifier {
   String firstItemInDropDown = 'Category';
   List listDropDown = <String>['Category', 'Area']
       .map<DropdownMenuItem<String>>((String value) {
-    print('your value fro DDM is $value');
+    // print('your value fro DDM is $value');
     return DropdownMenuItem<String>(
       value: value,
       child: Text(value),
@@ -61,9 +66,7 @@ class CategoryApi with ChangeNotifier {
     notifyListeners();
   }
 
-  CategoryApi() {
-    loadCategories();
-  }
+ 
   String categoriesUrl =
       'https://www.themealdb.com/api/json/v1/1/categories.php';
 

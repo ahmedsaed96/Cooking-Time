@@ -12,7 +12,7 @@ import '../function.dart';
 
 class CategoryListScreen extends StatelessWidget {
   static const String routeName = 'CategoryList';
-  // final String imageUrl = Provider.of<CategoryApi>(context).categoryFlag[index];
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -77,6 +77,7 @@ class CategoryListScreen extends StatelessWidget {
                       .allArea[index]
                       .strArea,
               onTap: () {
+                //TODO:need some work here 
                 api.imageUrlProvider = api.categoryList[index].strCategoryThumb;
                 api.myListOfCategoryItems = Provider.of<Api>(context,
                         listen: false)

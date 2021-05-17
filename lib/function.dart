@@ -18,12 +18,9 @@ Widget todayRecipeCard(
       height: size.height / 3.5,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        // color: Colors.green,
+        color: Colors.grey,
         image: DecorationImage(
-          image: imageUrl.isEmpty
-              //TODO:i dont shour about circle progres here
-              ? CircularProgressIndicator
-              : NetworkImage(imageUrl),
+          image: NetworkImage(imageUrl),
           fit: BoxFit.cover,
         ),
       ),
