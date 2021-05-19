@@ -6,12 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class CategoryApi with ChangeNotifier {
-
-   CategoryApi() {
+  CategoryApi() {
     loadCategories();
   }
-  
+
   String imageUrlProvider = '';
+  // String get imageUrlProvider {
+  //   notifyListeners();
+  //   return myImageUrlProvider;
+  // }
+
   List<String> myCountryFlags = [
     'https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg',
     'https://www.crushpixel.com/big-static11/preview4/uk-british-flag-union-jack-720005.jpg',
@@ -46,11 +50,11 @@ class CategoryApi with ChangeNotifier {
   }
 
   List<Category> categoryList = [];
-  List<Meal> myListOfCategoryItems = [];
-  List<Meal> get listOfCategoryItems {
-    notifyListeners();
-    return myListOfCategoryItems;
-  }
+  List<Meal> listOfCategoryItems = [];
+  // List<Meal> get listOfCategoryItems {
+  //   notifyListeners();
+  //   return myListOfCategoryItems;
+  // }
 
   String firstItemInDropDown = 'Category';
   List listDropDown = <String>['Category', 'Area']
@@ -66,7 +70,6 @@ class CategoryApi with ChangeNotifier {
     notifyListeners();
   }
 
- 
   String categoriesUrl =
       'https://www.themealdb.com/api/json/v1/1/categories.php';
 

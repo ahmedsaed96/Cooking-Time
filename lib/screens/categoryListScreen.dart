@@ -52,8 +52,10 @@ class CategoryListScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Consumer<CategoryApi>(
-        builder: (context, api, _) => GridView.builder(
+      body: Consumer3(
+        builder: (context, CategoryApi categoryApi, Api api, AreaApi areaApi,
+                child) =>
+            GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 10.0,
@@ -67,33 +69,28 @@ class CategoryListScreen extends StatelessWidget {
               size: size,
               height: 30.0,
               width: 160,
-              imageUrl: api.firstItemInDropDown == 'Category'
-                  ? api.categoryList[index].strCategoryThumb
-                  : api.categoryFlag[index],
-              //Provider.of<AreaApi>(context).allArea
-              nameofrecipe: api.firstItemInDropDown == 'Category'
-                  ? api.categoryList[index].strCategory
-                  : Provider.of<AreaApi>(context, listen: false)
-                      .allArea[index]
-                      .strArea,
+              imageUrl: categoryApi.firstItemInDropDown == 'Category'
+                  ? categoryApi.categoryList[index].strCategoryThumb
+                  : categoryApi.categoryFlag[index],
+              //Provider.of<AreacategoryApi>(context).allArea
+              nameofrecipe: categoryApi.firstItemInDropDown == 'Category'
+                  ? categoryApi.categoryList[index].strCategory
+                  : areaApi.allArea[index].strArea,
               onTap: () {
-                //TODO:need some work here 
-                api.imageUrlProvider = api.categoryList[index].strCategoryThumb;
-                api.myListOfCategoryItems = Provider.of<Api>(context,
-                        listen: false)
-                    .listOfCategorItems(api.categoryList[index].strCategory);
-                Provider.of<AreaApi>(context, listen: false).allAreas =
-                    Provider.of<Api>(context, listen: false).listOfAreaItems(
-                        Provider.of<AreaApi>(context, listen: false)
-                            .allArea[index]
-                            .strArea);
-                // Provider.of<Api>(context).meals[index].strArea;
+                categoryApi.imageUrlProvider =
+                    categoryApi.categoryList[index].strCategoryThumb;
+
+                categoryApi.listOfCategoryItems = api.listOfCategorItems(
+                    categoryApi.categoryList[index].strCategory);
+
+                areaApi.allAreas =
+                    api.listOfAreaItems(areaApi.allArea[index].strArea);
                 return Navigator.of(context).pushNamed(CategoryMeals.routeName);
               },
             ),
           ),
-          itemCount: api.firstItemInDropDown == 'Category'
-              ? api.categoryList.length
+          itemCount: categoryApi.firstItemInDropDown == 'Category'
+              ? categoryApi.categoryList.length
               : Provider.of<AreaApi>(context, listen: false).allArea.length,
         ),
       ),
