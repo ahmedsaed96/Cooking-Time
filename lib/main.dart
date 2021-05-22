@@ -6,6 +6,7 @@ import 'package:coocking_time/screens/detailsScreen.dart';
 import 'package:coocking_time/screens/favoriteListDetails.dart';
 import 'package:coocking_time/screens/favoriteScreen.dart';
 import 'package:coocking_time/screens/homePage.dart';
+import 'package:coocking_time/screens/settingScreen.dart';
 import 'package:coocking_time/services/areaApi.dart';
 import 'package:coocking_time/services/categoryApi.dart';
 import 'package:coocking_time/services/mainApi.dart';
@@ -47,7 +48,9 @@ class MyApp extends StatelessWidget {
           CategoryMeals.routeName: (context) => CategoryMeals(),
           HomePage.routeName: (context) => HomePage(),
           FavoriteScreen.routeName: (context) => FavoriteScreen(),
-          FavoriteLIstDetailsScreen.routeName: (context) => FavoriteLIstDetailsScreen(),
+          FavoriteLIstDetailsScreen.routeName: (context) =>
+              FavoriteLIstDetailsScreen(),
+          SettingScreen.routeName: (context) => SettingScreen(),
         },
       ),
     );

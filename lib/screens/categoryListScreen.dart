@@ -12,7 +12,6 @@ import '../function.dart';
 
 class CategoryListScreen extends StatelessWidget {
   static const String routeName = 'CategoryList';
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -61,39 +60,49 @@ class CategoryListScreen extends StatelessWidget {
             crossAxisSpacing: 10.0,
             mainAxisSpacing: 10.0,
           ),
-          itemBuilder: (context, index) => Container(
-            padding: EdgeInsets.only(left: 10.0),
-            height: size.height / 3.7,
-            width: size.width,
-            child: todayRecipeCard(
-              size: size,
-              height: 30.0,
-              width: 160,
-              imageUrl: categoryApi.firstItemInDropDown == 'Category'
-                  ? categoryApi.categoryList[index].strCategoryThumb
-                  : categoryApi.categoryFlag[index],
-              //Provider.of<AreacategoryApi>(context).allArea
-              nameofrecipe: categoryApi.firstItemInDropDown == 'Category'
-                  ? categoryApi.categoryList[index].strCategory
-                  : areaApi.allArea[index].strArea,
-              onTap: () {
-                categoryApi.imageUrlProvider =
-                    categoryApi.categoryList[index].strCategoryThumb;
-
-                categoryApi.listOfCategoryItems = api.listOfCategorItems(
-                    categoryApi.categoryList[index].strCategory);
-
-                areaApi.allAreas =
-                    api.listOfAreaItems(areaApi.allArea[index].strArea);
-                return Navigator.of(context).pushNamed(CategoryMeals.routeName);
-              },
-            ),
-          ),
+          itemBuilder: (context, index) {
+            // // debugPrint('area flag is =${categoryApi.categoryFlag[index]}');
+            // debugPrint(
+            //     'image url provider is =${categoryApi.categoryList[index].strCategoryThumb}');
+            return Container(
+              padding: EdgeInsets.only(left: 10.0),
+              height: size.height / 3.7,
+              width: size.width,
+              child: todayRecipeCard(
+                size: size,
+                height: 30.0,
+                width: 160,
+                imageUrl: categoryApi.firstItemInDropDown == 'Category'
+                    ? categoryApi.categoryList[index].strCategoryThumb
+                    : categoryApi.categoryFlag[index],
+                //Provider.of<AreacategoryApi>(context).allArea
+                nameofrecipe: categoryApi.firstItemInDropDown == 'Category'
+                    ? categoryApi.categoryList[index].strCategory
+                    : areaApi.allArea[index].strArea,
+                onTap: () {
+                  if (categoryApi.firstItemInDropDown == 'Category') {
+                    categoryApi.imageUrlProvider =
+                        categoryApi.categoryList[index].strCategoryThumb;
+                    categoryApi.listOfCategoryItems = api.listOfCategorItems(
+                        categoryApi.categoryList[index].strCategory);
+                    return Navigator.of(context)
+                        .pushNamed(CategoryMeals.routeName);
+                  } else
+                    categoryApi.areaFlag = categoryApi.categoryFlag[index];
+                  areaApi.allAreas =
+                      api.listOfAreaItems(areaApi.allArea[index].strArea);
+                  return Navigator.of(context)
+                      .pushNamed(CategoryMeals.routeName);
+                },
+              ),
+            );
+          },
           itemCount: categoryApi.firstItemInDropDown == 'Category'
               ? categoryApi.categoryList.length
-              : Provider.of<AreaApi>(context, listen: false).allArea.length,
+              : areaApi.allArea.length,
         ),
       ),
     );
   }
 }
+// :categoryApi.categoryFlag.length,

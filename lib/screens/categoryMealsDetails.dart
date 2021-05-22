@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CategoryMeals extends StatelessWidget {
-  
   static const String routeName = 'CategoryMeals';
   @override
   Widget build(BuildContext context) {
@@ -19,13 +18,15 @@ class CategoryMeals extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
-      body: Consumer<CategoryApi>(
-        builder: (ctx, api, widget) => Column(
+      body: Consumer2<CategoryApi, AreaApi>(
+        builder: (ctx, categoryApi, areaApi, widget) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Image.network(
-              api.imageUrlProvider,
+              categoryApi.firstItemInDropDown == 'Category'
+                  ? categoryApi.imageUrlProvider
+                  : categoryApi.areaFlag,
               fit: BoxFit.cover,
             ),
             Container(
@@ -49,12 +50,10 @@ class CategoryMeals extends StatelessWidget {
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: NetworkImage(
-                                api.firstItemInDropDown == 'Category'
-                                    ? api
+                                categoryApi.firstItemInDropDown == 'Category'
+                                    ? categoryApi
                                         .listOfCategoryItems[index].strMealThumb
-                                    : Provider.of<AreaApi>(context)
-                                        .allAreas[index]
-                                        .strMealThumb,
+                                    : areaApi.allAreas[index].strMealThumb,
                               )),
                               borderRadius: BorderRadius.circular(65.0)),
                         ),
@@ -68,22 +67,20 @@ class CategoryMeals extends StatelessWidget {
                               height: size.height / 6 - 50,
                               width: size.width / 2 - 10,
                               child: Text(
-                                api.firstItemInDropDown == 'Category'
-                                    ? api.listOfCategoryItems[index].strMeal
-                                    : Provider.of<AreaApi>(context)
-                                        .allAreas[index]
-                                        .strMeal,
+                                categoryApi.firstItemInDropDown == 'Category'
+                                    ? categoryApi
+                                        .listOfCategoryItems[index].strMeal
+                                    : areaApi.allAreas[index].strMeal,
                                 style: TextStyle(fontWeight: FontWeight.w400),
                               ),
                             ),
                             Container(
                               width: size.width / 2 - 10,
                               child: Text(
-                                api.firstItemInDropDown == 'Category'
-                                    ? api.listOfCategoryItems[index].strArea
-                                    : Provider.of<AreaApi>(context)
-                                        .allAreas[index]
-                                        .strArea,
+                                categoryApi.firstItemInDropDown == 'Category'
+                                    ? categoryApi
+                                        .listOfCategoryItems[index].strArea
+                                    : areaApi.allAreas[index].strArea,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -104,9 +101,9 @@ class CategoryMeals extends StatelessWidget {
                       ],
                     ),
                   ),
-                  itemCount: api.firstItemInDropDown == 'Category'
-                      ? api.listOfCategoryItems.length
-                      : Provider.of<AreaApi>(context).allAreas.length,
+                  itemCount: categoryApi.firstItemInDropDown == 'Category'
+                      ? categoryApi.listOfCategoryItems.length
+                      : areaApi.allAreas.length,
                 ))
           ],
         ),

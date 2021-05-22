@@ -15,39 +15,39 @@ class CategoryApi with ChangeNotifier {
   //   notifyListeners();
   //   return myImageUrlProvider;
   // }
-
-  List<String> myCountryFlags = [
-    'https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg',
-    'https://www.crushpixel.com/big-static11/preview4/uk-british-flag-union-jack-720005.jpg',
-    'https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_%28Pantone%29.svg',
-    'https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg',
-    'https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg',
-    'https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg',
-    'https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg',
-    'https://www.greeka.com/photos/unique/greece/greece-history/flags/hero/greece-history-flags-1-1280.webp',
-    'https://cdn.britannica.com/97/1597-004-05816F4E/Flag-India.jpg'
-        'https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg',
-    'https://upload.wikimedia.org/wikipedia/en/0/03/Flag_of_Italy.svg',
-    'https://upload.wikimedia.org/wikipedia/commons/0/0a/Flag_of_Jamaica.svg',
-    'https://upload.wikimedia.org/wikipedia/commons/9/9e/Flag_of_Japan.svg',
-    'https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Kenya.svg',
-    'https://upload.wikimedia.org/wikipedia/commons/6/66/Flag_of_Malaysia.svg',
-    'https://upload.wikimedia.org/wikipedia/commons/6/62/Mexican_flag.png',
-    'https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Morocco.svg',
-    'https://upload.wikimedia.org/wikipedia/en/1/12/Flag_of_Poland.svg',
-    'https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg',
-    'https://upload.wikimedia.org/wikipedia/en/f/f3/Flag_of_Russia.svg',
-    'https://upload.wikimedia.org/wikipedia/commons/8/89/Bandera_de_Espa%C3%B1a.svg',
-    'https://upload.wikimedia.org/wikipedia/commons/a/a9/Flag_of_Thailand.svg',
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Tunisia.svg/1024px-Flag_of_Tunisia.svg.png',
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Flag_of_Turkey.svg/1024px-Flag_of_Turkey.svg.png',
+  String areaFlag = '';
+  List<String> categoryFlag = [
+    'https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg',
+    'https://cdn.britannica.com/25/4825-004-F1975B92/Flag-United-Kingdom.jpg',
+    'https://cdn.britannica.com/68/7068-004-7848FEB4/Flag-Canada.jpg',
+    'https://cdn.britannica.com/90/7490-004-BAD4AA72/Flag-China.jpg',
+    'https://cdn.britannica.com/82/2982-004-84A2A71E/flag-prototype-Netherlands-countries-European-flags.jpg',
+    'https://cdn.britannica.com/85/185-050-6A8E2E8A/Flag-Egypt.jpg',
+    'https://cdn.britannica.com/82/682-050-8AA3D6A6/Flag-France.jpg',
+    'https://cdn.britannica.com/49/1049-050-3AD6578E/Flag-Greece.jpg',
+    'https://cdn.britannica.com/97/1597-050-008F30FA/Flag-India.jpg',
+    'https://cdn.britannica.com/33/1733-050-04264811/FLAG-Ireland.jpg',
+    'https://cdn.britannica.com/59/1759-050-FCD5A574/Flag-Italy.jpg',
+    'https://cdn.britannica.com/20/5120-004-3E9D869E/Flag-Jamaica.jpg',
+    'https://cdn.britannica.com/91/1791-004-DA3579A5/Flag-Japan.jpg',
+    'https://cdn.britannica.com/15/15-004-B5D6BF80/Flag-Kenya.jpg',
+    'https://cdn.britannica.com/31/4031-004-82B0F3A9/Flag-Malaysia.jpg',
+    'https://cdn.britannica.com/73/2573-004-29818847/Flag-Mexico.jpg',
+    'https://cdn.britannica.com/39/3039-004-52B064C7/Flag-Morocco.jpg',
+    'https://cdn.britannica.com/52/3552-004-83ABA964/Flag-Poland.jpg',
+    'https://cdn.britannica.com/88/3588-004-E0E45339/Flag-Portugal.jpg',
+    'https://cdn.britannica.com/42/3842-004-F47B77BC/Flag-Russia.jpg',
+    'https://cdn.britannica.com/36/4336-004-6BD81071/Flag-Spain.jpg',
+    'https://cdn.britannica.com/38/4038-004-111388C2/Flag-Thailand.jpg',
+    'https://cdn.britannica.com/41/3041-004-F1D6DEFC/Flag-Tunisia.jpg',
+    'https://cdn.britannica.com/82/4782-004-4119489D/Flag-Turkey.jpg',
     'https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png',
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/1024px-Flag_of_Vietnam.svg.png'
+    'https://cdn.britannica.com/41/4041-004-D051B135/Flag-Vietnam.jpg',
   ];
-  List<String> get categoryFlag {
-    notifyListeners();
-    return myCountryFlags;
-  }
+  // List<String> get categoryFlag {
+  //   notifyListeners();
+  //   return myCountryFlags;
+  // }
 
   List<Category> categoryList = [];
   List<Meal> listOfCategoryItems = [];

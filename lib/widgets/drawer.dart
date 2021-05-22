@@ -1,6 +1,7 @@
 import 'package:coocking_time/screens/categoryListScreen.dart';
 import 'package:coocking_time/screens/favoriteScreen.dart';
 import 'package:coocking_time/screens/homePage.dart';
+import 'package:coocking_time/screens/settingScreen.dart';
 import 'package:flutter/material.dart';
 
 class CustumDrawer extends StatelessWidget {
@@ -55,8 +56,7 @@ class CustumDrawer extends StatelessWidget {
             title: Text('Settings'),
             leading: Icon(Icons.settings),
             onTap: () {
-              Navigator.pushReplacementNamed(
-                  context, CategoryListScreen.routeName);
+              Navigator.pushNamed(context, SettingScreen.routeName);
             },
           ),
           ListTile(

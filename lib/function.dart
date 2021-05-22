@@ -2,6 +2,43 @@ import 'package:coocking_time/provider/favoriteProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+Future<String> buildShowDialog(BuildContext context) {
+  return showDialog<String>(
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+      title: const Text('Mode'),
+      content: Container(
+        height: 108.0,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Checkbox(value: false, onChanged: (bool onChange) {}),
+                const Text('Light Mode'),
+              ],
+            ),
+            const SizedBox(height: 10.0),
+            Row(
+              children: [
+                Checkbox(value: false, onChanged: (bool onChange) {}),
+                const Text('Dark Mode'),
+              ],
+            ),
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'Cancel'),
+          child: const Text('Cancel'),
+        ),
+      ],
+    ),
+  );
+}
+
 Widget todayRecipeCard(
     {Size size,
     String imageUrl,
